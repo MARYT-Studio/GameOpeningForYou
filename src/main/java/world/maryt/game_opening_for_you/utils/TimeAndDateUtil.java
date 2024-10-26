@@ -1,5 +1,7 @@
 package world.maryt.game_opening_for_you.utils;
 
+import cn.hutool.core.date.ChineseDate;
+import cn.hutool.core.date.DateUtil;
 import world.maryt.game_opening_for_you.GameOpeningForYou;
 
 import java.util.Calendar;
@@ -20,6 +22,12 @@ public class TimeAndDateUtil {
 
     public static boolean isHalloween() {
         return month == Calendar.OCTOBER && day == 31;
+    }
+
+    // Chinese New Year
+    public static boolean isSpringFestival() {
+        ChineseDate chineseDate = new ChineseDate(DateUtil.parseDate(String.format("%d-%d-%d", year, month, day)));
+        return chineseDate.getFestivals().contains("春节");
     }
 
     // Time related
