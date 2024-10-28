@@ -13,12 +13,11 @@ import world.maryt.game_opening_for_you.handler.GameOpeningHandler;
 
 import java.io.File;
 
-
 @Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION, clientSideOnly = true)
 public class GameOpeningForYou {
-    public static String MOD_ID = Tags.MOD_ID;
-    public static String MOD_NAME = Tags.MOD_NAME;
+    public static final String MOD_NAME = Tags.MOD_NAME;
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
+    public static boolean DEBUG = false;
 
     public static int daytimeBeginningHour = 8;
     public static int daytimeEndHour = 18;
@@ -67,6 +66,12 @@ public class GameOpeningForYou {
                 Property property = config.get(Configuration.CATEGORY_GENERAL, "lateNightBeginningMinute", 30);
                 property.setComment("The time of day you think late night starts, expressed in 24-hour format. The default value is 23:30.");
                 GameOpeningForYou.lateNightBeginningMinute = property.getInt();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "DEBUG", false);
+                property.setComment("Display debug logs. For debug purposes.");
+                GameOpeningForYou.DEBUG = property.getBoolean();
                 property.setShowInGui(true);
             }
 

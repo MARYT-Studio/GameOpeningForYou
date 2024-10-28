@@ -147,6 +147,8 @@ dependencies {
 
     // Lunar Calendar utils
     implementation 'cn.hutool:hutool-core:5.8.32'
+
+    runtimeOnly rfg.deobf('curse.maven:mysterious-mountain-lib-368098:3254750')
 }
 
 apply from: 'gradle/scripts/dependencies.gradle'
