@@ -1,13 +1,14 @@
 package world.maryt.game_opening_for_you.handler;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import world.maryt.game_opening_for_you.GameOpeningForYou;
 import world.maryt.game_opening_for_you.utils.GameInfoUtil;
 import world.maryt.game_opening_for_you.utils.TextPreprocessUtil;
@@ -15,6 +16,8 @@ import world.maryt.game_opening_for_you.utils.TimeAndDateUtil;
 
 import static world.maryt.game_opening_for_you.GameOpeningForYou.*;
 
+
+@SideOnly(Side.CLIENT)
 public class GameOpeningHandler {
 
     @SubscribeEvent
@@ -54,9 +57,9 @@ public class GameOpeningHandler {
         if (defaultMessage) {player.sendMessage(MessageMarkHelper.markMessage(createOpeningMessage("default_opening", player)));}
     }
 
-    // TODO: Player info
     private ITextComponent createOpeningMessage(String openingEntry, EntityPlayer player) {
-        return new TextComponentTranslation(String.format("%s.%s.text", GameOpeningForYou.MOD_ID, openingEntry));
+        String rawTranslation = I18n.format(String.format("%s.%s.text", GameOpeningForYou.MOD_ID, openingEntry));
+        return TextPreprocessUtil.preprocess(rawTranslation, player.getName());
     }
 
     private boolean conditionSatisfied(String openingEntry, EntityPlayer player) {

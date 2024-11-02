@@ -1,6 +1,8 @@
 package world.maryt.game_opening_for_you.utils;
 
-import net.minecraft.entity.player.EntityPlayer;
+import com.google.gson.JsonSyntaxException;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 
 import java.text.NumberFormat;
 
@@ -12,20 +14,24 @@ import static world.maryt.game_opening_for_you.GameOpeningForYou.dayFixDigits;
 
 public class TextPreprocessUtil {
 
-    public static String preprocess(String rawLanguageValue, EntityPlayer player) {
-        String result;
+    public static ITextComponent preprocess(String rawString, String playerName) {
+        
         // player info
-        result = rawLanguageValue.replaceAll("%name%", player.getName());
+        rawString = rawString.replaceAll("%player%", playerName);
         // time
-        result = result.replaceAll("%hour%", getHour());
-        result = result.replaceAll("%min%", getMinute());
-        result = result.replaceAll("%sec%", getSecond());
+        rawString = rawString.replaceAll("%hour%", getHour());
+        rawString = rawString.replaceAll("%min%", getMinute());
+        rawString = rawString.replaceAll("%sec%", getSecond());
         // date
-        result = result.replaceAll("%year%", getYear());
-        result = result.replaceAll("%month%", getMonth());
-        result = result.replaceAll("%day%", getDay());
+        rawString = rawString.replaceAll("%year%", getYear());
+        rawString = rawString.replaceAll("%month%", getMonth());
+        rawString = rawString.replaceAll("%day%", getDay());
 
-        return result;
+        try {
+            return ITextComponent.Serializer.jsonToComponent(rawString);
+        } catch (JsonSyntaxException e) {
+            return new TextComponentString(rawString);
+        }
     }
 
     private static String getYear() {

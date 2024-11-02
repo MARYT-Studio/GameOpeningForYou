@@ -1,7 +1,7 @@
-game_opening_for_you.default_opening.text=Welcome, dear! Here's the fresh game opening. It's just all for you. For you, for you, for you.
-game_opening_for_you.hardcore_opening.text=Welcome, dear! Here's the fresh game opening. Hardcore mode right? Be brave and relax, enjoy your game please.
-game_opening_for_you.night_opening.text=Welcome, dear! Here's the fresh game opening. Night is young, wish you a nice dream in Minecraft.
-game_opening_for_you.late_opening.text=Welcome, dear! Here's the fresh game opening. It's late. If only I could put the game in dark mode for you.
-game_opening_for_you.april_fools_day_opening.text=Welcome, dear! Here's the fresh game opening. It's April Fool's Day today, try to dig and combat with wrong tools.
-game_opening_for_you.halloween_opening.text=Welcome, dear! Here's the fresh game opening. An even much fresher one is brewing with spider eyes and rotten flesh.
-game_opening_for_you.spring_festival_opening.text=Welcome, dear! Here's the fresh game opening. A fresh Chinese year's opening, too. Best wishes for you!
+game_opening_for_you.default_opening.text=Welcome, dear §e%player%§r. Here's the fresh game opening. It's just all for you. For you, for you, for you.
+game_opening_for_you.hardcore_opening.text=Welcome, dear §e%player%§r. Here's the fresh game opening. Hardcore mode right? Be brave and relax, enjoy your game please.
+game_opening_for_you.night_opening.text=Welcome, dear §e%player%§r. Here's the fresh game opening. It's %hour%:%min%. Night is young, wish you a nice dream in Minecraft.
+game_opening_for_you.late_opening.text=Welcome, dear §e%player%§r. Here's the fresh game opening. %hour%:%min%. It's late. If only I could put the game in dark mode for you.
+game_opening_for_you.april_fools_day_opening.text=Welcome, dear §e%player%§r. Here's the fresh game opening. It's April Fool's Day today, try to dig and combat with wrong tools.
+game_opening_for_you.halloween_opening.text=Welcome, dear §e%player%§r. Here's the fresh game opening. An even much fresher one is brewing with spider eyes and rotten flesh.
+game_opening_for_you.spring_festival_opening.text=Welcome, dear §e%player%§r. Here's the fresh game opening. A fresh Chinese year's opening, too. Best wishes for you!

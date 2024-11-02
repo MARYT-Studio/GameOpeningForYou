@@ -1,7 +1,7 @@
-game_opening_for_you.default_opening.text=你好，亲爱的朋友！这是全新的游戏开屏问候。专属于你的。
-game_opening_for_you.hardcore_opening.text=你好，亲爱的朋友！这是全新的游戏开屏问候。极限模式吗？放轻松，祝你游戏愉快。
-game_opening_for_you.night_opening.text=你好，亲爱的朋友！这是全新的游戏开屏问候。夜色正美，游戏如梦。
-game_opening_for_you.late_opening.text=你好，亲爱的朋友！这是全新的游戏开屏问候。夜深了，我要是能帮你把游戏调成深色模式就好了。
-game_opening_for_you.april_fools_day_opening.text=你好，亲爱的朋友！这是全新的游戏开屏问候。今天是愚人节，逗自己笑一笑吧。
-game_opening_for_you.halloween_opening.text=你好，亲爱的朋友！这是新鲜的游戏开屏问候。还有一个更新鲜的，正在用蜘蛛眼和腐肉炼制当中。
-game_opening_for_you.spring_festival_opening.text=你好，亲爱的朋友！这是全新的游戏开屏问候。今天也是新的一年，祝你新年快乐！
+game_opening_for_you.default_opening.text=你好，亲爱的 §e%player%§r！这是全新的游戏开屏问候。专属于你的。
+game_opening_for_you.hardcore_opening.text=你好，亲爱的 §e%player%§r！这是全新的游戏开屏问候。极限模式吗？放轻松，祝你游戏愉快。
+game_opening_for_you.night_opening.text=你好，亲爱的 §e%player%§r！这是全新的游戏开屏问候。现在是 %hour%:%min%。夜色正美，游戏如梦。
+game_opening_for_you.late_opening.text=你好，亲爱的 §e%player%§r！这是全新的游戏开屏问候。现在是 %hour%:%min%。夜深了，我要是能帮你把游戏调成深色模式就好了。
+game_opening_for_you.april_fools_day_opening.text=你好，亲爱的 §e%player%§r！这是全新的游戏开屏问候。今天是愚人节，逗自己笑一笑吧。
+game_opening_for_you.halloween_opening.text=你好，亲爱的 §e%player%§r！这是新鲜的游戏开屏问候。还有一个更新鲜的，正在用蜘蛛眼和腐肉炼制当中。
+game_opening_for_you.spring_festival_opening.text=你好，亲爱的 §e%player%§r！这是全新的游戏开屏问候。今天也是新的一年，祝你新年快乐！
