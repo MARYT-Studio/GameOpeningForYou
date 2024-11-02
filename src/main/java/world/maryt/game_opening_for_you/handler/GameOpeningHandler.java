@@ -17,24 +17,10 @@ import static world.maryt.game_opening_for_you.GameOpeningForYou.*;
 
 public class GameOpeningHandler {
 
-    private final String OPENING_FINISH_SIGNAL = GameOpeningForYou.MOD_ID + ".opening_finish";
-    private boolean gameOpeningFinished;
-
-    public GameOpeningHandler() {
-        this.gameOpeningFinished = false;
-    }
-
     @SubscribeEvent
     public void clearMessages(ClientChatReceivedEvent event) {
-        if (!this.gameOpeningFinished) {
+        if (isWaitingForGameOpeningFinish) {
             ITextComponent message = event.getMessage();
-
-            // Opening Finish Signal
-            if (event.getMessage().getFormattedText().equals(OPENING_FINISH_SIGNAL)) {
-                gameOpeningFinished = true;
-                event.setCanceled(true);
-                return;
-            }
 
             if (MessageMarkHelper.messageNotMarked(message)) {
                 GameOpeningForYou.MISSED_MSG_LOGGER.info("Missed Message: {}", message.getFormattedText());
@@ -43,11 +29,20 @@ public class GameOpeningHandler {
             else {
                 event.setMessage(MessageMarkHelper.removeMessageMark(message));
             }
+
+            if (DEBUG) {
+                if (event.isCanceled()) {
+                    LOGGER.info("Rejected message: {} in the waiting period. {} milliseconds remains.", event.getMessage(), GameOpeningForYou.WaitingHandler.getRemainingWaitingTime());
+                } else {
+                    LOGGER.info("Received message: {} in the waiting period. {} milliseconds remains.", event.getMessage(), GameOpeningForYou.WaitingHandler.getRemainingWaitingTime());
+                }
+            }
         }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void gameOpening(PlayerEvent.PlayerLoggedInEvent event) {
+        GameOpeningForYou.waitForGameOpeningFinish();
         EntityPlayer player = event.player;
         boolean defaultMessage = true;
         for (String openingEntry : GameOpeningForYou.gameOpeningMessageList) {
@@ -57,16 +52,11 @@ public class GameOpeningHandler {
             }
         }
         if (defaultMessage) {player.sendMessage(MessageMarkHelper.markMessage(createOpeningMessage("default_opening", player)));}
-        player.sendMessage(createOpeningFinishSignal());
     }
 
     // TODO: Player info
     private ITextComponent createOpeningMessage(String openingEntry, EntityPlayer player) {
         return new TextComponentTranslation(String.format("%s.%s.text", GameOpeningForYou.MOD_ID, openingEntry));
-    }
-
-    private ITextComponent createOpeningFinishSignal() {
-        return new TextComponentString(OPENING_FINISH_SIGNAL);
     }
 
     private boolean conditionSatisfied(String openingEntry, EntityPlayer player) {
