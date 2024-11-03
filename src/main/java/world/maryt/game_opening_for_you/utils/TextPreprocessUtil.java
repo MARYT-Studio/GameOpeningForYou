@@ -17,15 +17,15 @@ public class TextPreprocessUtil {
     public static ITextComponent preprocess(String rawString, String playerName) {
         
         // player info
-        rawString = rawString.replaceAll("%player%", playerName);
+        rawString = rawString.replaceAll("`player`", playerName);
         // time
-        rawString = rawString.replaceAll("%hour%", getHour());
-        rawString = rawString.replaceAll("%min%", getMinute());
-        rawString = rawString.replaceAll("%sec%", getSecond());
+        rawString = rawString.replaceAll("`hour`", getHour());
+        rawString = rawString.replaceAll("`min`", getMinute());
+        rawString = rawString.replaceAll("`sec`", getSecond());
         // date
-        rawString = rawString.replaceAll("%year%", getYear());
-        rawString = rawString.replaceAll("%month%", getMonth());
-        rawString = rawString.replaceAll("%day%", getDay());
+        rawString = rawString.replaceAll("`year`", getYear());
+        rawString = rawString.replaceAll("`month`", getMonth());
+        rawString = rawString.replaceAll("`day`", getDay());
 
         try {
             return ITextComponent.Serializer.jsonToComponent(rawString);
