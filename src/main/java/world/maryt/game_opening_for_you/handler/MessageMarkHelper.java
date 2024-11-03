@@ -3,22 +3,29 @@ package world.maryt.game_opening_for_you.handler;
 import com.google.gson.*;
 import net.minecraft.util.text.ITextComponent;
 import world.maryt.game_opening_for_you.GameOpeningForYou;
+
+import java.util.ArrayList;
+
 import static world.maryt.game_opening_for_you.GameOpeningForYou.DEBUG;
 
 public class MessageMarkHelper {
     private static final JsonParser jsonParser = new JsonParser();
-//    private static final JsonElement MARKER = parser.parse(String.format("{\"text\" : \"[%s]\",\"color\" : \"gold\"}", GameOpeningForYou.MOD_NAME));
     private static final String MARKER_TEXT = String.format("[%s]", GameOpeningForYou.MOD_NAME);
     private static final ITextComponent MARKER = ITextComponent.Serializer.jsonToComponent(
         String.format("{\"text\" : \"%s\" , \"color\" : \"gold\"}", MARKER_TEXT)
     );
 
-    public static ITextComponent markMessage(ITextComponent message) {
-        if (MARKER != null) {
-            return message.appendSibling(MARKER);
+    public static ArrayList<ITextComponent> markMessage(ArrayList<ITextComponent> messageList) {
+        ArrayList<ITextComponent> markedMessages = new ArrayList<>();
+        for (ITextComponent message : messageList) {
+            if (MARKER != null) {
+                markedMessages.add(message.appendSibling(MARKER));
+            } else {
+                GameOpeningForYou.LOGGER.error("MARKER is null, mark-adding fails.");
+                break;
+            }
         }
-        GameOpeningForYou.LOGGER.error("MARKER is null, mark-adding fails.");
-        return message;
+        return markedMessages;
     }
 
     public static boolean messageNotMarked(ITextComponent message) {

@@ -12,8 +12,7 @@ import org.apache.logging.log4j.Logger;
 import world.maryt.game_opening_for_you.handler.GameOpeningHandler;
 
 import java.io.File;
-
-import static world.maryt.game_opening_for_you.GameOpeningForYou.WaitingHandler.waitingThread;
+import java.util.Arrays;
 
 @Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION, clientSideOnly = true)
 public class GameOpeningForYou {
@@ -139,7 +138,8 @@ public class GameOpeningForYou {
                                 "spring_festival_opening"
                         });
                 property.setComment("Each row corresponds to an opening greeting.\nYou can delete the lines you don't need, or comment them out (by adding a # sign in front of them),\nso that the open screen greeting corresponding to that line will not be sent.");
-                GameOpeningForYou.gameOpeningMessageList = property.getStringList();
+                // Filter commented lines
+                gameOpeningMessageList = Arrays.stream(property.getStringList()).filter(condition -> !condition.startsWith("#")).toArray(String[]::new);
                 property.setShowInGui(true);
             }
             {
@@ -164,14 +164,28 @@ public class GameOpeningForYou {
     // Game Opening status
     public static boolean gameOpeningFinished = false;
     public static boolean isWaitingForGameOpeningFinish = false;
+    public static WaitingHandler waitingHandlerInstance = null;
     // Control function
-    public static void waitForGameOpeningFinish() {waitingThread.start();}
+    public static void waitForGameOpeningFinish() {
+        waitingHandlerInstance = new WaitingHandler();
+        waitingHandlerInstance.waitingThread.start();
+    }
+    public static void stopWaitingForGameOpeningFinish() {
+        waitingHandlerInstance.waitingThread.interrupt();
+        gameOpeningFinished = false;
+        isWaitingForGameOpeningFinish = false;
+    }
+    public static boolean isStillWaitingForGameOpeningFinish() {
+        return waitingHandlerInstance.waitingThread.isInterrupted();
+    }
+    public static long getRemainingWaitingTime() {
+        return waitingHandlerInstance.remainingTime;
+    }
 
     public static class WaitingHandler{
-        private static long remainingTime = 0;
-        static Thread waitingThread = new Thread(() -> {
+        private long remainingTime = 0;
+        private final Thread waitingThread = new Thread(() -> {
             isWaitingForGameOpeningFinish = true;
-
 
             // Get current time
             long startTime = System.currentTimeMillis();
@@ -191,9 +205,6 @@ public class GameOpeningForYou {
             remainingTime = gameOpeningMilliseconds - elapsedTime;
         });
 
-        public static long getRemainingWaitingTime() {
-            return remainingTime;
-        }
     }
 
 }

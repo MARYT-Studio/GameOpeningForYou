@@ -14,6 +14,8 @@ import world.maryt.game_opening_for_you.utils.GameInfoUtil;
 import world.maryt.game_opening_for_you.utils.TextPreprocessUtil;
 import world.maryt.game_opening_for_you.utils.TimeAndDateUtil;
 
+import java.util.ArrayList;
+
 import static world.maryt.game_opening_for_you.GameOpeningForYou.*;
 
 
@@ -35,9 +37,9 @@ public class GameOpeningHandler {
 
             if (DEBUG) {
                 if (event.isCanceled()) {
-                    LOGGER.info("Rejected message: {} in the waiting period. {} milliseconds remains.", event.getMessage(), GameOpeningForYou.WaitingHandler.getRemainingWaitingTime());
+                    LOGGER.info("Rejected message: {} in the waiting period. {} milliseconds remains.", event.getMessage(), getRemainingWaitingTime());
                 } else {
-                    LOGGER.info("Received message: {} in the waiting period. {} milliseconds remains.", event.getMessage(), GameOpeningForYou.WaitingHandler.getRemainingWaitingTime());
+                    LOGGER.info("Received message: {} in the waiting period. {} milliseconds remains.", event.getMessage(), getRemainingWaitingTime());
                 }
             }
         }
@@ -50,16 +52,28 @@ public class GameOpeningHandler {
         boolean defaultMessage = true;
         for (String openingEntry : GameOpeningForYou.gameOpeningMessageList) {
             if (conditionSatisfied(openingEntry, player)) {
-                player.sendMessage(MessageMarkHelper.markMessage(createOpeningMessage(openingEntry, player)));
+                sendMessageToPlayer(MessageMarkHelper.markMessage(createOpeningMessage(openingEntry, player)), player);
                 defaultMessage = false;
             }
         }
-        if (defaultMessage) {player.sendMessage(MessageMarkHelper.markMessage(createOpeningMessage("default_opening", player)));}
+        if (defaultMessage) sendMessageToPlayer(MessageMarkHelper.markMessage(createOpeningMessage("default_opening", player)), player);
     }
 
-    private ITextComponent createOpeningMessage(String openingEntry, EntityPlayer player) {
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void refreshGameOpening(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (isStillWaitingForGameOpeningFinish()) stopWaitingForGameOpeningFinish();
+    }
+
+    private ArrayList<ITextComponent> createOpeningMessage(String openingEntry, EntityPlayer player) {
         String rawTranslation = I18n.format(String.format("%s.%s.text", GameOpeningForYou.MOD_ID, openingEntry));
-        return TextPreprocessUtil.preprocess(rawTranslation, player.getName());
+        String[] lines = rawTranslation.split("`br`");
+        return TextPreprocessUtil.preprocess(lines, player.getName());
+    }
+
+    private void sendMessageToPlayer(ArrayList<ITextComponent> messageList, EntityPlayer player) {
+        for (ITextComponent message : messageList) {
+            player.sendMessage(message);
+        }
     }
 
     private boolean conditionSatisfied(String openingEntry, EntityPlayer player) {

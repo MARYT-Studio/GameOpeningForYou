@@ -5,6 +5,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 import static world.maryt.game_opening_for_you.GameOpeningForYou.hourFixDigits;
 import static world.maryt.game_opening_for_you.GameOpeningForYou.minuteFixDigits;
@@ -14,24 +15,32 @@ import static world.maryt.game_opening_for_you.GameOpeningForYou.dayFixDigits;
 
 public class TextPreprocessUtil {
 
-    public static ITextComponent preprocess(String rawString, String playerName) {
-        
-        // player info
-        rawString = rawString.replaceAll("`player`", playerName);
-        // time
-        rawString = rawString.replaceAll("`hour`", getHour());
-        rawString = rawString.replaceAll("`min`", getMinute());
-        rawString = rawString.replaceAll("`sec`", getSecond());
-        // date
-        rawString = rawString.replaceAll("`year`", getYear());
-        rawString = rawString.replaceAll("`month`", getMonth());
-        rawString = rawString.replaceAll("`day`", getDay());
+    public static ArrayList<ITextComponent> preprocess(String[] lines, String playerName) {
 
-        try {
-            return ITextComponent.Serializer.jsonToComponent(rawString);
-        } catch (JsonSyntaxException e) {
-            return new TextComponentString(rawString);
+        ArrayList<ITextComponent> result = new ArrayList<>();
+
+        for (String line : lines) {
+            String resultLine = line;
+            // player info
+            resultLine = resultLine.replaceAll("`player`", playerName);
+            // time
+            resultLine = resultLine.replaceAll("`hour`", getHour());
+            resultLine = resultLine.replaceAll("`min`", getMinute());
+            resultLine = resultLine.replaceAll("`sec`", getSecond());
+            // date
+            resultLine = resultLine.replaceAll("`year`", getYear());
+            resultLine = resultLine.replaceAll("`month`", getMonth());
+            resultLine = resultLine.replaceAll("`day`", getDay());
+
+            try {
+                result.add(ITextComponent.Serializer.jsonToComponent(resultLine));
+            } catch (JsonSyntaxException e) {
+                result.add(new TextComponentString(resultLine));
+            }
         }
+
+
+        return result;
     }
 
     private static String getYear() {
