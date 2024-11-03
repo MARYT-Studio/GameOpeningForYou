@@ -49,6 +49,8 @@ With this mod, you are able to customize game opening welcome messages for your 
    `year`   -> Current date years 
    `month`  -> Current date months, will be formatted into 2 digits (8 -> 08 for example)
    `day`    -> Current date days, will be formatted into 2 digits (8 -> 08 for example)
+   
+   `br`     -> Break lines, just like press Enter key here 
    ```
 
 ## Configuration
