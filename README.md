@@ -6,8 +6,6 @@ _________________
 
 Game-Opening, only for your modpack.
 
-Manage your own messages in one mod, and remove any other messages from mods.
-
 ## Features
 
 With this mod, you are able to customize game opening welcome messages for your modpack:
