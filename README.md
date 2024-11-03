@@ -8,6 +8,51 @@ Game-Opening, only for your modpack.
 
 Manage your own messages in one mod, and remove any other messages from mods.
 
+## Features
+
+With this mod, you are able to customize game opening welcome messages for your modpack:
+
+1. Set a time limit for your welcome messages. Any other messages will be blocked, except for the welcome message. The chat box will be kept tidy for you until the end of your preset time period.
+2. But don't worry! These messages aren't lost. They're recorded in the log with a special flag `Game Opening For You - Missed Message Collector` like this:
+    
+    ```
+   [21:36:23] [Client thread/INFO] [Game Opening For You - Missed Message Collector]: Missed Message: Some message.
+   ```
+    
+    So you can easily find them if you want to.
+3. The program has a few special conditions that it sets up. When a player meets these conditions, the game will send them a special message!
+    
+    Conditions are listed in configuration file (See also: [Configuration](#configuration)). Currently, we have:
+    1. `hardcore_opening`: Whether player has hardcore mode enabled or not.
+    2. `night_opening`: Whether current time is later than the daylight end time and earlier than daytime beginning time. These time points are all configurable.
+    3. `late_opening`: Whether current time is later than the late night beginning time and earlier than daytime beginning time. This overrides the `night_opening` condition and replaces its message. These time points are all configurable.
+    4. `april_fools_day_opening`: Whether current day is April Fool's day.
+    5. `halloween_opening`: Whether current day is Halloween.
+    6. `spring_festival_opening`: Whether current day is Chinese Spring Festival.
+
+   You can easily remove or comment out any conditions you don't need so they don't trigger.
+4. Each condition corresponds to a language entry
+    
+    ```
+   game_opening_for_you.<condition_name>.text
+   ```    
+
+   So you can simply modify the `.lang` file to localize the welcome message. We've included a default `en_us.lang` in the mod for you to use as a reference.
+   
+   Besides, resource loading mods, like [Resource Loader](https://www.curseforge.com/minecraft/mc-mods/resource-loader) or [Open Loader](https://www.curseforge.com/minecraft/mc-mods/open-loader), is recommended.
+5. We've made it super easy for you to personalize your welcome message! Just use the placeholders below, which you can write directly in the `.lang` file. The program will take care of the rest, automatically replacing them with your own text.
+    ```
+   `player` -> Player's Name
+    
+   `hour`   -> Current time hours
+   `min`    -> Current time minutes, will be formatted into 2 digits (8 -> 08 for example)
+   `sec`    -> Current time seconds, will be formatted into 2 digits (8 -> 08 for example)
+        
+   `year`   -> Current date years 
+   `month`  -> Current date months, will be formatted into 2 digits (8 -> 08 for example)
+   `day`    -> Current date days, will be formatted into 2 digits (8 -> 08 for example)
+   ```
+
 ## Configuration
 
 Configuration file is fully documented.
