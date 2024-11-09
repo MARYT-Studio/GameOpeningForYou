@@ -50,6 +50,15 @@ public class GameOpeningForYou {
             "spring_festival_opening"
     };
 
+    // Links
+    public static String discordLink = "";
+    public static String curseforgeLink = "";
+    public static String modrinthLink = "";
+    // Placeholder will be replaced with corresponding display text, and be directed to its link
+    public static String discordDisplayText = "Discord Link";
+    public static String curseforgeDisplayText = "CurseForge Link";
+    public static String modrinthDisplayText = "Modrinth Link";
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent preEvent) {
         Configuration config = new Configuration(new File(Loader.instance().getConfigDir(), MOD_ID + ".cfg"));
@@ -145,8 +154,43 @@ public class GameOpeningForYou {
             {
                 Property property = config.get(Configuration.CATEGORY_GENERAL, "gameOpeningMilliseconds", 1000);
                 property.setComment("The duration of the game's opening screen greeting.\nChat messages other than game opening greetings during this time will be rejected and saved in the log.\nYou can adjust this value at your discretion,\ndepending on the number of messages you want to block,\nand the player's experience when sending messages in the game.");
-                // Milliseconds to Seconds
                 GameOpeningForYou.gameOpeningMilliseconds = property.getInt();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "discordLink", "");
+                property.setComment("Put a Discord invitation link here, and you can use `discord` placeholder for a text with this link.");
+                GameOpeningForYou.discordLink = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "curseforgeLink", "");
+                property.setComment("Put CurseForge official link of your modpack here, and you can use `curseforge` placeholder for a text with this link.");
+                GameOpeningForYou.curseforgeLink = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "modrinthLink", "");
+                property.setComment("Put Modrinth official link of your modpack here, and you can use `modrinth` placeholder for a text with this link.");
+                GameOpeningForYou.modrinthLink = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "discordDisplayText", "Discord Link");
+                property.setComment("When you use `discord` placeholder, the placeholder will be replaced with this text and point to your Discord link.");
+                GameOpeningForYou.discordDisplayText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "curseforgeDisplayText", "CurseForge Link");
+                property.setComment("When you use `curseforge` placeholder, the placeholder will be replaced with this text and point to your CurseForge link.");
+                GameOpeningForYou.curseforgeDisplayText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "modrinthDisplayText", "Modrinth Link");
+                property.setComment("When you use `modrinth` placeholder, the placeholder will be replaced with this text and point to your Modrinth link.");
+                GameOpeningForYou.modrinthDisplayText = property.getString();
                 property.setShowInGui(true);
             }
 

@@ -1,4 +1,4 @@
-game_opening_for_you.default_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. It's just all for you. For you, for you, for you.
+game_opening_for_you.default_opening.text=Welcome, dear §e`player`§r. Here's the `curseforge` opening. It's just all for you. For you, for you, for you.
 game_opening_for_you.hardcore_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. Hardcore mode right? Be brave and relax, enjoy your game please.
 game_opening_for_you.night_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. It's `hour`:`min`. Night is young, wish you a nice dream in Minecraft.
 game_opening_for_you.late_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. `hour`:`min`. It's late. If only I could put the game in dark mode for you.

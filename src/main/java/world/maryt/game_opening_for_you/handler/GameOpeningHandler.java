@@ -28,11 +28,12 @@ public class GameOpeningHandler {
             ITextComponent message = event.getMessage();
 
             if (MessageMarkHelper.messageNotMarked(message)) {
-                GameOpeningForYou.MISSED_MSG_LOGGER.info("Missed Message: {}", message.getFormattedText());
+                MISSED_MSG_LOGGER.info("Missed Message: {}", message.getFormattedText());
                 event.setCanceled(true);
             }
             else {
                 event.setMessage(MessageMarkHelper.removeMessageMark(message));
+                if(DEBUG) LOGGER.info("Message after removing mark: {}", event.getMessage());
             }
 
             if (DEBUG) {
@@ -47,16 +48,20 @@ public class GameOpeningHandler {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void gameOpening(PlayerEvent.PlayerLoggedInEvent event) {
-        GameOpeningForYou.waitForGameOpeningFinish();
+        waitForGameOpeningFinish();
         EntityPlayer player = event.player;
-        boolean defaultMessage = true;
-        for (String openingEntry : GameOpeningForYou.gameOpeningMessageList) {
-            if (conditionSatisfied(openingEntry, player)) {
-                sendMessageToPlayer(MessageMarkHelper.markMessage(createOpeningMessage(openingEntry, player)), player);
-                defaultMessage = false;
+        if (gameOpeningMessageList == null || gameOpeningMessageList.length == 0)
+            sendMessageToPlayer(MessageMarkHelper.markMessage(createOpeningMessage("default_opening", player)), player);
+        else {
+            boolean defaultMessage = true;
+            for (String openingEntry : gameOpeningMessageList) {
+                if (conditionSatisfied(openingEntry, player)) {
+                    sendMessageToPlayer(MessageMarkHelper.markMessage(createOpeningMessage(openingEntry, player)), player);
+                    defaultMessage = false;
+                }
             }
+            if (defaultMessage) sendMessageToPlayer(MessageMarkHelper.markMessage(createOpeningMessage("default_opening", player)), player);
         }
-        if (defaultMessage) sendMessageToPlayer(MessageMarkHelper.markMessage(createOpeningMessage("default_opening", player)), player);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
