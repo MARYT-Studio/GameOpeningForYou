@@ -1,8 +1,8 @@
 package world.maryt.game_opening_for_you.handler;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -10,14 +10,14 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import world.maryt.game_opening_for_you.GameOpeningForYou;
+import world.maryt.game_opening_for_you.utils.BreakLinesUtil;
 import world.maryt.game_opening_for_you.utils.GameInfoUtil;
-import world.maryt.game_opening_for_you.utils.TextPreprocessUtil;
+import world.maryt.game_opening_for_you.utils.PlaceholderUtil;
 import world.maryt.game_opening_for_you.utils.TimeAndDateUtil;
 
 import java.util.ArrayList;
 
 import static world.maryt.game_opening_for_you.GameOpeningForYou.*;
-
 
 @SideOnly(Side.CLIENT)
 public class GameOpeningHandler {
@@ -64,10 +64,10 @@ public class GameOpeningHandler {
         if (isStillWaitingForGameOpeningFinish()) stopWaitingForGameOpeningFinish();
     }
 
+    @SuppressWarnings("deprecation")
     private ArrayList<ITextComponent> createOpeningMessage(String openingEntry, EntityPlayer player) {
-        String rawTranslation = I18n.format(String.format("%s.%s.text", GameOpeningForYou.MOD_ID, openingEntry));
-        String[] lines = rawTranslation.split("`br`");
-        return TextPreprocessUtil.preprocess(lines, player.getName());
+        String rawTranslation = I18n.translateToLocal(String.format("%s.%s.text", GameOpeningForYou.MOD_ID, openingEntry));
+        return PlaceholderUtil.parsePlaceholders(BreakLinesUtil.breakline(rawTranslation), player.getName());
     }
 
     private void sendMessageToPlayer(ArrayList<ITextComponent> messageList, EntityPlayer player) {
@@ -87,6 +87,10 @@ public class GameOpeningHandler {
         // Time related checks
         if (openingEntry.contains("night")) {
             if (DEBUG) {
+                if (TimeAndDateUtil.isLateNight()) {
+                    GameOpeningForYou.LOGGER.info("Late night condition overrides this condition, and its checking is skipped.");
+                    TimeAndDateUtil.displayTime("late");
+                }
                 GameOpeningForYou.LOGGER.info("{}: {}", openingEntry, TimeAndDateUtil.isNight());
                 TimeAndDateUtil.displayTime("night");
             }

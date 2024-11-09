@@ -50,6 +50,36 @@ public class GameOpeningForYou {
             "spring_festival_opening"
     };
 
+    // Link line feature
+    // Links
+    public static String discordLink = "";
+    // QQ is an IM software mainly used in China
+    public static String qqGroupLink = "";
+    public static String curseforgeLink = "";
+    public static String modrinthLink = "";
+
+    // Placeholder will be replaced with corresponding display text, and be directed to its link
+    // Default texts, to cover the illegal config texts
+    public static final String defaultDiscordDisplayText = "game_opening_for_you.discord.display.text";
+    public static final String defaultQQGroupDisplayText = "game_opening_for_you.qq_group.display.text";
+    public static final String defaultCurseforgeDisplayText = "game_opening_for_you.curseforge.display.text";
+    public static final String defaultModrinthDisplayText = "game_opening_for_you.modrinth.display.text";
+
+    public static final String defaultDiscordHoverText = "game_opening_for_you.discord.hover.text";
+    public static final String defaultQQGroupHoverText = "game_opening_for_you.qq_group.hover.text";
+    public static final String defaultCurseforgeHoverText = "game_opening_for_you.curseforge.hover.text";
+    public static final String defaultModrinthHoverText = "game_opening_for_you.modrinth.hover.text";
+    // texts will read from config
+    public static String discordDisplayText = defaultDiscordDisplayText;
+    public static String qqGroupDisplayText = defaultQQGroupDisplayText;
+    public static String curseforgeDisplayText = defaultCurseforgeDisplayText;
+    public static String modrinthDisplayText = defaultModrinthDisplayText;
+    // When player hover mouse pointer on the link display text, it will show a Hover Text
+    public static String discordHoverText = "";
+    public static String qqGroupHoverText = "";
+    public static String curseforgeHoverText = "";
+    public static String modrinthHoverText = "";
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent preEvent) {
         Configuration config = new Configuration(new File(Loader.instance().getConfigDir(), MOD_ID + ".cfg"));
@@ -145,8 +175,83 @@ public class GameOpeningForYou {
             {
                 Property property = config.get(Configuration.CATEGORY_GENERAL, "gameOpeningMilliseconds", 1000);
                 property.setComment("The duration of the game's opening screen greeting.\nChat messages other than game opening greetings during this time will be rejected and saved in the log.\nYou can adjust this value at your discretion,\ndepending on the number of messages you want to block,\nand the player's experience when sending messages in the game.");
-                // Milliseconds to Seconds
                 GameOpeningForYou.gameOpeningMilliseconds = property.getInt();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "discordLink", "");
+                property.setComment("Put a Discord invitation link here, and you can use `discord` placeholder for a MESSAGE LINE of this link.\nCaution: Any other text in this line will be ignored.");
+                GameOpeningForYou.discordLink = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "qqGroupLink", "");
+                property.setComment("Put a QQ Group invitation link here, and you can use `qqgroup` placeholder for a MESSAGE LINE of this link.\nCaution: Any other text in this line will be ignored.");
+                GameOpeningForYou.qqGroupLink = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "curseforgeLink", "");
+                property.setComment("Put CurseForge official link of your modpack here, and you can use `curseforge` placeholder for a MESSAGE LINE of this link.\nCaution: Any other text in this line will be ignored.");
+                GameOpeningForYou.curseforgeLink = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "modrinthLink", "");
+                property.setComment("Put Modrinth official link of your modpack here, and you can use `modrinth` placeholder for a MESSAGE LINE of this link.\nCaution: Any other text in this line will be ignored.");
+                GameOpeningForYou.modrinthLink = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "discordDisplayText", defaultDiscordDisplayText);
+                property.setComment("When you use `discord` placeholder, the placeholder will be replaced with this text and point to your Discord link.");
+                GameOpeningForYou.discordDisplayText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "qqGroupDisplayText", defaultQQGroupDisplayText);
+                property.setComment("When you use `qqgroup` placeholder, the placeholder will be replaced with this text and point to your QQ Group invitation link.");
+                GameOpeningForYou.qqGroupDisplayText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "curseforgeDisplayText", defaultCurseforgeDisplayText);
+                property.setComment("When you use `curseforge` placeholder, the placeholder will be replaced with this text and point to your CurseForge link.");
+                GameOpeningForYou.curseforgeDisplayText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "modrinthDisplayText", defaultModrinthDisplayText);
+                property.setComment("When you use `modrinth` placeholder, the placeholder will be replaced with this text and point to your Modrinth link.");
+                GameOpeningForYou.modrinthDisplayText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "discordHoverText", defaultDiscordHoverText);
+                property.setComment("Hover text displayed when player hover mouse pointer on link.\nDelete the line from config file if you does not need hover texts.");
+                if (property.getString().startsWith("#")) GameOpeningForYou.discordHoverText = "";
+                else GameOpeningForYou.discordHoverText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "qqGroupHoverText", defaultQQGroupHoverText);
+                property.setComment("Hover text displayed when player hover mouse pointer on link.\nDelete the line from config file if you does not need hover texts.");
+                if (property.getString().startsWith("#")) GameOpeningForYou.qqGroupHoverText = "";
+                else GameOpeningForYou.qqGroupHoverText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "curseforgeHoverText", defaultCurseforgeHoverText);
+                property.setComment("Hover text displayed when player hover mouse pointer on link.\nDelete the line from config file if you does not need hover texts.");
+                if (property.getString().startsWith("#")) GameOpeningForYou.curseforgeHoverText = "";
+                else GameOpeningForYou.curseforgeHoverText = property.getString();
+                property.setShowInGui(true);
+            }
+            {
+                Property property = config.get(Configuration.CATEGORY_GENERAL, "modrinthHoverText", defaultModrinthHoverText);
+                property.setComment("Hover text displayed when player hover mouse pointer on link.\nDelete the line from config file if you does not need hover texts.");
+                if (property.getString().startsWith("#")) GameOpeningForYou.modrinthHoverText = "";
+                else GameOpeningForYou.modrinthHoverText = property.getString();
                 property.setShowInGui(true);
             }
 

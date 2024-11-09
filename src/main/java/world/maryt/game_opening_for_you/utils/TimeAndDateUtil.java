@@ -33,6 +33,8 @@ public class TimeAndDateUtil {
 
     // Time related
     public static boolean isNight() {
+        // override by Late night
+        if (isLateNight()) return false;
         if (hour > GameOpeningForYou.daytimeEndHour || (hour == GameOpeningForYou.daytimeEndHour) && (minute >= GameOpeningForYou.daytimeEndMinute)) return true;
         return (hour < GameOpeningForYou.daytimeBeginningHour) || (hour == GameOpeningForYou.daytimeBeginningHour && minute <= GameOpeningForYou.daytimeBeginningMinute);
     }

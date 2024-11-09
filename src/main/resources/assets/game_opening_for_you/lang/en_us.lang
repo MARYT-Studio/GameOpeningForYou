@@ -1,7 +1,23 @@
-game_opening_for_you.default_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. It's just all for you. For you, for you, for you.
-game_opening_for_you.hardcore_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. Hardcore mode right? Be brave and relax, enjoy your game please.
-game_opening_for_you.night_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. It's `hour`:`min`. Night is young, wish you a nice dream in Minecraft.
-game_opening_for_you.late_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. `hour`:`min`. It's late. If only I could put the game in dark mode for you.
-game_opening_for_you.april_fools_day_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. It's April Fool's Day today, try to dig and combat with wrong tools.
-game_opening_for_you.halloween_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. An even much fresher one is brewing with spider eyes and rotten flesh.
-game_opening_for_you.spring_festival_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening. A fresh Chinese year's opening, too. Best wishes for you!
+# Message Texts
+game_opening_for_you.default_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening.`br`It's just all for you. For you, for you, for you.`hr`Find this modpack on CurseForge:`br``curseforge`
+game_opening_for_you.hardcore_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening.`br`Hardcore mode right? Be brave and relax, enjoy your game please.`hr`Find this modpack on CurseForge:`br``curseforge`
+game_opening_for_you.night_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening.`br`It's `hour`:`min`. Night is young, wish you a nice dream in Minecraft.`hr`Find this modpack on CurseForge:`br``curseforge`
+game_opening_for_you.late_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening.`br``hour`:`min`. It's late. If only I could put the game in dark mode for you.`hr`Find this modpack on CurseForge:`br``curseforge`
+game_opening_for_you.april_fools_day_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening.`br`It's April Fool's Day today, try to dig and combat with wrong tools.`hr`Find this modpack on CurseForge:`br``curseforge`
+game_opening_for_you.halloween_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening.`br`An even much fresher one is brewing with spider eyes and rotten flesh.`hr`Find this modpack on CurseForge:`br``curseforge`
+game_opening_for_you.spring_festival_opening.text=Welcome, dear §e`player`§r. Here's the fresh game opening.`br`A fresh Chinese year's opening, too. Best wishes for you!`hr`Find this modpack on CurseForge:`br``curseforge`
+
+# Link line texts
+# Display Texts, will replace its corresponding placeholder
+game_opening_for_you.discord.display.text=Discord Link
+game_opening_for_you.qq_group.display.text=QQ Group Link
+game_opening_for_you.curseforge.display.text=CurseForge Link
+game_opening_for_you.modrinth.display.text=Modrinth Link
+# Hover Texts, will display when player hovers mouse pointer on the link
+game_opening_for_you.discord.hover.text=Discord Link
+game_opening_for_you.qq_group.hover.text=QQ Group Link
+game_opening_for_you.curseforge.hover.text=CurseForge Link
+game_opening_for_you.modrinth.hover.text=Modrinth Link
+
+# Headline
+game_opening_for_you.headline=§7*--*--*--*--*--*--*--*--*--*--*--*--*--*--*§r
