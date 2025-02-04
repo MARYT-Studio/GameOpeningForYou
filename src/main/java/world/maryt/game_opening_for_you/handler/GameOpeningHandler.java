@@ -7,8 +7,6 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import world.maryt.game_opening_for_you.GameOpeningForYou;
 import world.maryt.game_opening_for_you.utils.BreakLinesUtil;
 import world.maryt.game_opening_for_you.utils.GameInfoUtil;
@@ -19,7 +17,6 @@ import java.util.ArrayList;
 
 import static world.maryt.game_opening_for_you.GameOpeningForYou.*;
 
-@SideOnly(Side.CLIENT)
 public class GameOpeningHandler {
 
     @SubscribeEvent

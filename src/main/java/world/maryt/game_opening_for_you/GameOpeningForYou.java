@@ -14,7 +14,7 @@ import world.maryt.game_opening_for_you.handler.GameOpeningHandler;
 import java.io.File;
 import java.util.Arrays;
 
-@Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION, clientSideOnly = true)
+@Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION)
 public class GameOpeningForYou {
     public static final String MOD_ID = Tags.MOD_ID;
     public static final String MOD_NAME = Tags.MOD_NAME;
